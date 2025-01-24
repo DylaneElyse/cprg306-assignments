@@ -1,14 +1,14 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Week 2 Assignment",
-  description: "Week 2 Assignment",
+  title: "Week 3 Assignment",
+  description: "Week 3 Assignment",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-neutral-50 p-4">{children}</body>
     </html>
   );
 }
