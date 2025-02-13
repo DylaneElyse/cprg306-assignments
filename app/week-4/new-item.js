@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-// const [quantity, setQuantity] = useState(1);
-
 export default function NewItem() {
   const [quantity, setQuantity] = useState(1);
 
