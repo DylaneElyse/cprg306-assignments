@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Pickles",
+        "description": "Pickles is a very good dog",
+        "image": "https://images.unsplash.com/photo-1560807707-9b1b8b5e0f0b"
+    },
+    {
+        "id": 2,
+        "name": "Rex",
+        "description": "Rex is a very good dog",
+        "image": "https://images.unsplash.com/photo-1560807707-9b1b8b5e0f0b"
+    },
+    {
+        "id": 3,
+        "name": "Buddy",
+        "description": "Buddy is a very good dog",
+        "image": "https://images.unsplash.com/photo-1560807707-9b1b8b5e0f0b"
+    }
+]

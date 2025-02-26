@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "CPRG 306 Assignments",
-  description: "CPRG 306 Assignments",
+  title: "Shopping List",
+  description: "Shopping List",
 };
 
 export default function RootLayout({ children }) {
