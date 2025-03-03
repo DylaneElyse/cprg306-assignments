@@ -1,4 +1,5 @@
-import Item from "./item";
+"use client";
+
 import ItemList from "./item-list";
 
 export default function Page() {

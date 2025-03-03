@@ -1,6 +1,5 @@
 "use client";
 
-import Item from "./item";
 import items from "./items.json";
 import { useState } from "react";
 
@@ -9,33 +8,40 @@ export default function ItemList() {
   let sortedItems = [...items];
 
   const handleSort = (event) => {
-    if (event.target.value === "name") {
-      setSortBy("name");
-      return;
-    }
-    if (event.target.value === "quantity") {
-      setSortBy("quantity");
-      return;
-    }
+    setSortBy(event.target.value);
   };
 
-  const sortItems = (sortedItems) => {
+  const sortItems = () => {
     if (sortBy === "name") {
       sortedItems.sort((a, b) => a.name.localeCompare(b.name));
-      return;
     }
     if (sortBy === "quantity") {
       sortedItems.sort((a, b) => a.quantity - b.quantity);
-      return;
     }
+    return sortedItems;
   };
 
   return (
     <div>
-      <ul>
-        {sortedItems.map((item) => (
-          <li key={item.id} onClick={() => handleSort(item.id)}>
-            <p>{item.name}</p>
+      <button
+        value={"name"}
+        className="bg-rose-400 rounded text-neutral-50 font-bold text-2xl text-center m-1 p-2"
+        onClick={(event) => handleSort(event)}
+      >
+        Name
+      </button>
+      <button
+        value={"quantity"}
+        className="bg-rose-400 rounded text-neutral-50 font-bold text-2xl text-center m-1 p-2"
+        onClick={(event) => handleSort(event)}
+      >
+        Quantity
+      </button>
+
+      <ul className="text-lg">
+        {sortItems().map((item) => (
+          <li className="bg-rose-200 w-1/5 mb-2 p-4 rounded" key={item.id}>
+            <p className="font-semibold text-xl">{item.name}</p>
             <p>{item.quantity}</p>
             <p>{item.category}</p>
           </li>
