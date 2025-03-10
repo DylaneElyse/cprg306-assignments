@@ -67,7 +67,7 @@ export default function NewItem({onAddItem}) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center w-1/2 bg-neutral-300 p-5 m-5 mb-2 rounded"
+      className="flex flex-col items-center bg-neutral-300 p-5 m-5 mb-2 rounded"
     >
       {/* Name input field with label */}
       <div className="flex flex-row text-2xl w-11/12 m-2 justify-between items-center">

@@ -1,33 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import Item from "./item";
 
-/**
- * ItemList component that displays and manages a sorted list of items
- * @param {Object} props - Component props
- * @param {Array} props.items - Array of items to display and sort
- * @returns {JSX.Element} The rendered item list with sorting controls
- */
-export default function ItemList({items}) {
+//  ItemList component that displays and manages a sorted list of items
+export default function ItemList({items, onItemSelect}) {
   // Initialize state for tracking current sort criterion
   const [sortBy, setSortBy] = useState("name");
   
   // Create a copy of the items array to avoid mutating the original data
   let sortedItems = [...items];
 
-  /**
-   * Handles sort criterion selection
-   * @param {Object} event - Event object from the button click
-   */
+  // Handles sort criterion selection
   const handleSort = (event) => {
     // Update the sort criterion based on the selected button
     setSortBy(event.target.value);
   };
 
-  /**
-   * Sorts items based on the current sort criterion
-   * @returns {Array} The sorted array of items
-   */
+
+  // Sorts items based on the current sort criterion
   const sortItems = () => {
     // Sort items by name alphabetically using localeCompare for proper string comparison
     if (sortBy === "name") {
@@ -60,20 +51,11 @@ export default function ItemList({items}) {
       </button>
       </div>
 
-      <ul className="text-lg">
-        {sortItems().map((item) => (
-          <li 
-            className="bg-rose-200 w-80 mb-2 p-4 rounded" 
-            key={item.id}
-          >
-            <p className="font-semibold text-xl capitalize">{item.name}</p>
-            {/* Item quantity */}
-            <p>{item.quantity}</p>
-            {/* Item category */}
-            <p className="capitalize">{item.category}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col items-center">
+      {sortItems().map((item) => (
+          <Item key={item.id} itemProp={item} onSelect={onItemSelect} />        
+          ))}
+      </div>
     </div>
   );
 }
