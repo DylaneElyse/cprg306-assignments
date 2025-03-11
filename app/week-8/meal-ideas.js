@@ -10,8 +10,26 @@ async function fetchMealIdeas(ingredient) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log(data);
     return data.meals || []; // Return an empty array if data.meals is null
+  } catch (error) {
+    console.error("API Error: ", error);
+    throw error;
+  }
+}
+
+async function fetchMealIngredients(selectedMeal) {
+  try{
+    let mealName = String(selectedMeal);
+    mealName = mealName.replace(" ","_")
+    console.log(`Meal: ${mealName}`);
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${selectedMeal}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.ingredients || [];
   } catch (error) {
     console.error("API Error: ", error);
     throw error;
@@ -20,6 +38,8 @@ async function fetchMealIdeas(ingredient) {
 
 export function MealIdeas({ ingredient }) {
   const [meals, setMeals] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [selectedMeal, setSelectedMeal] = useState("");
 
   const loadMealIdeas = async () => {
     try {
@@ -30,13 +50,29 @@ export function MealIdeas({ ingredient }) {
     }
   };
 
+  const loadMealIngredients = async (selectedMeal) => {
+    try {
+      const newIngredients = await fetchMealIngredients(selectedMeal);
+      setIngredients(newIngredients);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    // if (ingredient) {
       loadMealIdeas();
-    // } else {
-    //   setMeals([]); // Reset meals if no ingredient is selected
-    // }
   }, [ingredient]);
+
+  useEffect(() => {
+    loadMealIngredients();
+    console.log(ingredients);
+  }, [selectedMeal]);
+
+  const handleSelect = (event) => {
+    event.preventDefault;
+    setSelectedMeal(event.target.innerText);
+    console.log(`Selected meal: ${selectedMeal}`);
+  };
 
   return (
     <div className="pt-4">
@@ -45,7 +81,22 @@ export function MealIdeas({ ingredient }) {
         meals.length > 0 ? (
           meals.map((meal) => (
             <div key={meal.idMeal}>
-              <p className="capitalize">{meal.strMeal}</p>
+              <div className="capitalize" onClick={handleSelect}>
+                {meal.strMeal}
+                {/* {selectedMeal !== "" && selectedMeal === meal.strMeal ? (
+                  <>
+                  {console.log(`Meal string: ${meal.strMeal}`)}
+                    <p className="text-md font-semibold">Ingredients:</p>
+                    {ingredients.map((ingredient) => (
+                    <p key={ingredient.idIngredient} className="capitalize">
+                      {ingredient.strIngredient}
+                    </p>
+                    ))}
+                  </>
+                ) : (
+                  ""
+                )} */}
+              </div>
             </div>
           ))
         ) : (
