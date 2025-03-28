@@ -1,0 +1,23 @@
+                {/* {selectedMeal !== "" && selectedMeal === meal.strMeal ? (
+                  <>
+                  {console.log(`Meal string: ${meal.strMeal}`)}
+                    <p className="text-md font-semibold">Ingredients:</p>
+                    {ingredients.map((ingredient) => (
+                    <p key={ingredient.idIngredient} className="capitalize">
+                      {ingredient.strIngredient}
+                    </p>
+                    ))}
+                  </>
+                ) : (
+                  ""
+                )} */}
+
+
+  {
+    /*
+  useEffect(() => {
+    loadMealIngredients();
+    console.log(ingredients);
+  }, [selectedMeal]);
+  */
+  }

@@ -40,13 +40,17 @@ export function MealIdeas({ ingredient }) {
   const [meals, setMeals] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [selectedMeal, setSelectedMeal] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const loadMealIdeas = async () => {
+    setLoading(true);
     try {
       const newMeals = await fetchMealIdeas(ingredient);
       setMeals(newMeals); // newMeals will always be an array (either with data or empty)
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,42 +64,29 @@ export function MealIdeas({ ingredient }) {
   };
 
   useEffect(() => {
-    loadMealIdeas();
+    if (ingredient) {
+      loadMealIdeas();
+    }
   }, [ingredient]);
-
-  useEffect(() => {
-    loadMealIngredients();
-    console.log(ingredients);
-  }, [selectedMeal]);
 
   const handleSelect = (event) => {
     event.preventDefault;
-    setSelectedMeal(event.target.innerText);
+    const mealName = event.target.innerText;
+    setSelectedMeal(mealName);
     console.log(`Selected meal: ${selectedMeal}`);
   };
 
   return (
-    <div className="pt-4">
+    <div className="pt-4 w-96">
       <p className="text-xl font-semibold">Meal Ideas:</p>
       {ingredient ? (
-        meals.length > 0 ? (
+        loading ? (
+          <p>Loading meal ideas.</p>
+        ) : meals.length > 0 ? (
           meals.map((meal) => (
             <div key={meal.idMeal}>
               <div className="capitalize" onClick={handleSelect}>
                 {meal.strMeal}
-                {/* {selectedMeal !== "" && selectedMeal === meal.strMeal ? (
-                  <>
-                  {console.log(`Meal string: ${meal.strMeal}`)}
-                    <p className="text-md font-semibold">Ingredients:</p>
-                    {ingredients.map((ingredient) => (
-                    <p key={ingredient.idIngredient} className="capitalize">
-                      {ingredient.strIngredient}
-                    </p>
-                    ))}
-                  </>
-                ) : (
-                  ""
-                )} */}
               </div>
             </div>
           ))

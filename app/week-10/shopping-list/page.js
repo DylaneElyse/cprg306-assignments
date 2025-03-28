@@ -25,7 +25,7 @@ export default function Page() {
   });
 
   // Handles adding new items to the shopping list
-  const handleAddItem = (item) => {
+  const handleAddItem = async (item) => {
     const userId = user.uid;
     addItem(userId, item).then((docRef) => {
       setItems([...items, { id: docRef.id, ...item }]);
@@ -49,6 +49,15 @@ export default function Page() {
     setSelectedItemName(name);
   };
 
+  if (!user) {
+    return (
+      <main className="flex items-center place-content-center flex-col">
+        <p>Sign in to access the content</p>
+        <button onClick={gitHubSignIn}>Sign In with GitHub</button>
+      </main>
+    );
+  }
+
   return (
     <main className="flex items-center place-content-center flex-col">
       {user ? (
@@ -60,7 +69,7 @@ export default function Page() {
               <NewItem onAddItem={handleAddItem} />
               <ItemList items={items} onItemSelect={handleItemSelect} />
             </div>
-            <MealIdeas ingredient={selectedItemName} className="w-96" />
+            <MealIdeas ingredient={selectedItemName} />
           </div>
         </div>
       ) : (
