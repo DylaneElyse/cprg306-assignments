@@ -77,7 +77,7 @@ export function MealIdeas({ ingredient }) {
   };
 
   return (
-    <div className="pt-4 w-96">
+    <div className="pt-4 w-72 flex flex-col">
       <p className="text-xl font-semibold">Meal Ideas:</p>
       {ingredient ? (
         loading ? (
@@ -91,7 +91,7 @@ export function MealIdeas({ ingredient }) {
             </div>
           ))
         ) : (
-          <p>No meals found for {ingredient}.</p>
+          <p>No meals found for {ingredient.replace(/_/g, " ")}.</p>
         )
       ) : (
         <p>Select an ingredient to see meal ideas.</p>

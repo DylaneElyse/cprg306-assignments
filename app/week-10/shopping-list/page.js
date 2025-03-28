@@ -61,15 +61,17 @@ export default function Page() {
   return (
     <main className="flex items-center place-content-center flex-col">
       {user ? (
-        <div>
+        <div className="w-90%">
           <button onClick={firebaseSignOut}>Sign Out</button>
-          <h1 className="font-bold text-4xl ml-4 pb-5 pt-2">Shopping List</h1>
-          <div className="flex flex-row align-top">
+          <h1 className="font-bold text-4xl ml-4 pb-5 pt-2 ">Shopping List</h1>
+          <div className="flex flex-row align-top w-100%">
             <div className="flex flex-col items-center">
               <NewItem onAddItem={handleAddItem} />
               <ItemList items={items} onItemSelect={handleItemSelect} />
             </div>
-            <MealIdeas ingredient={selectedItemName} />
+            <div>
+              <MealIdeas ingredient={selectedItemName} />
+            </div>
           </div>
         </div>
       ) : (
