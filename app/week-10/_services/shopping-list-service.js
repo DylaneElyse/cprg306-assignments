@@ -18,11 +18,12 @@ export const getItems = async (userId) => {
 };
 
 // add a new item to the shopping list
-export const addItem = async (userId, item) => {
+export async function addItem(userId, item) {
   try {
     const itemsCollection = collection(db, "users", userId, "items");
-    await addDoc(itemsCollection, item);
+    const docRef = await addDoc(itemsCollection, item);
+    return docRef;
   } catch (addItemError) {
     console.error("Error in addItem: ", addItemError);
   }
-};
+}

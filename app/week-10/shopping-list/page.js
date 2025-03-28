@@ -21,12 +21,13 @@ export default function Page() {
   }
 
   useEffect(() => {
-    loadItems(), [user];
+    loadItems(), [addItem];
   });
 
   // Handles adding new items to the shopping list
   const handleAddItem = (item) => {
-    addItem(userId = user.uid, item).then((docRef) => {
+    const userId = user.uid;
+    addItem(userId, item).then((docRef) => {
       setItems([...items, { id: docRef.id, ...item }]);
     });
   };
